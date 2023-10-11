@@ -63,9 +63,11 @@ class AutoRun:
         boy.frame = (boy.frame + 1) % 8
         if get_time() - boy.run_time > 2:
             boy.state_machine.handle_event(('TIME_OUT', 0))
+
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.bigY, boy.width, boy.length)
+
 
 class StateMachine:
     def __init__(self, boy):
