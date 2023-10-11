@@ -36,6 +36,9 @@ class AutoRun:
     @staticmethod
     def enter(boy, e):
         boy.action = 1
+        boy.running = True
+        boy.width, boy.length = 100, 100
+        boy.speed = 1
         boy.run_time = get_time()
         pass
 
@@ -46,14 +49,18 @@ class AutoRun:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        if boy.x < 700:
-            boy.x += 10
+
+        boy.width += 2
+        boy.length += 2
+        if boy.x < 780:
+            boy.speed += 0.25
+            boy.x += boy.speed
+            boy.y += 0.5
         if get_time() - boy.run_time > 2:
             boy.state_machine.handle_event(('TIME_OUT', 0))
-
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y, boy.width, boy.length)
 
 
 class StateMachine:
